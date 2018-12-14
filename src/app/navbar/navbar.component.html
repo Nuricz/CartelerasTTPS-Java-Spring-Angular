@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" routerLinkActive="active">Inicio</a>
+      </li>
+      <li class="nav-item" *ngIf="user">
+        <a class="nav-link" routerLink="/carteleras" routerLinkActive="active">Carteleras</a>
+      </li>
+      <li class="nav-item" *ngIf="user">
+          <a class="nav-link" routerLink="/agregar-cartelera" routerLinkActive="active">Agregar cartelera</a>
+        </li>
+      <li class="nav-item" *ngIf="user">
+        <div class="nav-link">Usuario: <b>{{user.username}}</b></div>
+      </li>
+      <li class="nav-item" *ngIf="user == null">
+          <button class="nav-link btn" mat-raised-button type="button" routerLink="/login" routerLinkActive="active">Iniciar sesión</button>
+        </li>
+      <li class="nav-item" *ngIf="user">
+        <button class="nav-link btn" mat-raised-button type="button" (click)="logout()">Cerrar sesión</button>
+      </li> 
+    </ul> 
+  </div>
+</nav>

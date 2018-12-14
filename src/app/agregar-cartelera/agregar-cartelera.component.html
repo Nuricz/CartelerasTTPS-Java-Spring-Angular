@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-login">
+        <div class="panel-body">
+            <h4>Formulario para crear cartelera</h4>
+            <hr>
+          <div class="row">
+            
+            <div class="col-lg-12">
+              <form style="display: block;" #lForm="ngForm" [formGroup]="carteleraForm" (ngSubmit)="submitCartelera()" novalidate>
+                <div class="form-group text-center">
+                    <label for="remember"> Cartelera de materia?</label>  
+                    <input type="checkbox" id="button1" formControlName= "Male" style="width: 25px" value="male"/>
+                      
+                  </div>
+                <div class="form-group">
+                    <label for="username"> Nombre</label>
+                  <input type="text" formControlName="nombre" id="nombre" tabindex="1" class="form-control" placeholder="Ingrese un nombre para la cartelera" required>
+                   
+                </div>
+                <div class="form-group">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Año</label>
+                    <select class="select form-control" [(ngModel)]="year" formControlName="year" id="sName">
+                      <option value="1" selected>1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select> 
+                </div>
+                
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                      <input type="submit" name="login-submit" id="login-submit" tabindex="4" class=" form-control btn btn-login" value="Crear">
+                    </div>
+                  </div>
+                </div>
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type='text/javascript' src='http://code.jquery.com/jquery.min.js'></script>
+<script type='text/javascript'>
+  $(document).ready(function() { 
+  $("#button1").click(function() {
+    $("#sName").attr('disabled', !$("#sName").attr('disabled'));
+  }); 
+}); 
+</script>

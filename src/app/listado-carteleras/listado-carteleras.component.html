@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+<table class="table table-striped">
+  <tr>
+    <th>Nombre</th>
+    <th>Año</th>
+  </tr>
+  <tr *ngFor="let cartelera of carteleras">
+    <td>
+      {{ cartelera.nombre }}
+    </td>
+    <td *ngIf="cartelera.year; else linea">
+      {{ cartelera.year }}
+    </td>
+    <ng-template #linea>
+      <td>
+        -
+      </td>
+    </ng-template>
+  </tr>
+
+</table>
