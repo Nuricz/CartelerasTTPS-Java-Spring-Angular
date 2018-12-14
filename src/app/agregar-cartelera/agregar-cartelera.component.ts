@@ -35,6 +35,7 @@ export class AgregarCarteleraComponent implements OnInit {
       this.carteleraService.crear(new CarteleraObject(this.carteleraForm.value)).subscribe(
         (res: HttpResponse<any>) => {
           window.alert('La cartelera se ha creado');
+          this.router.navigate(['/carteleras']);
         },
         (error: HttpErrorResponse) => {
           window.alert('El nombre de cartelera ya está utilizado')

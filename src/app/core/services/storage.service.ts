@@ -5,6 +5,7 @@ import {Injectable} from "@angular/core";
 import { Router } from '@angular/router';
 import {Session} from "../models/session.model";
 import {User} from "../models/user.model";
+import { HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class StorageService {
@@ -17,9 +18,17 @@ export class StorageService {
     this.currentSession = this.loadSessionData();
   }
 
-  setCurrentSession(user: User){
-    this.currentSession = user;
-    this.localStorageService.setItem('currentUser', JSON.stringify(user));
+  setCurrentSession(headers:HttpHeaders){
+    let nuevoUsuario={
+      "nombre":headers.get('nombre'),
+      "apellido":headers.get('apellido'),
+      "username":headers.get('username'),
+      "perfil":headers.get('perfil'),
+      "email":headers.get('mail'),
+      "token":headers.get('token')
+    }       
+    this.currentSession = nuevoUsuario;
+    this.localStorageService.setItem('currentUser', JSON.stringify(nuevoUsuario));
   }
 
   loadSessionData(): User{
@@ -42,15 +51,20 @@ export class StorageService {
 
   isAuthenticated(): boolean {
     return (this.getCurrentToken() != null) ? true : false;
+    //return false;
   };
 
-  getCurrentToken(): User {
-    return this.getCurrentSession();
+  getCurrentToken(): string {
+    if(this.getCurrentSession() != null)
+      return this.getCurrentSession().token;
+    else{
+      return null
+    }  
   };
 
   logout(): void{
     this.removeCurrentSession();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
 }

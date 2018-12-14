@@ -8,7 +8,7 @@ import {AuthenticationService} from "./shared/authentication.service";
 import {StorageService} from "../core/services/storage.service";
 import {Router} from "@angular/router";
 import {User} from "../core/models/user.model";
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html'
@@ -41,10 +41,8 @@ export class LoginComponent implements OnInit {
       
       this.authenticationService.login(new LoginObject(this.loginForm.value)).subscribe(
         (res: HttpResponse<any>) => {
-          const keys = res.headers.keys();
-          // window.alert(res.headers.getAll('token'));
-          //window.alert(res.headers.get('Content-Type'));
-          this.correctLogin(res.body)
+          
+          this.correctLogin(res.headers)
         },
         (error: HttpErrorResponse) => {
           window.alert('Los datos ingresados están rancios.. como Pablo')
@@ -53,8 +51,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private correctLogin(data: User){
-    this.storageService.setCurrentSession(data);
+  private correctLogin(headers:HttpHeaders){
+    this.storageService.setCurrentSession(headers);
     this.router.navigate(['/home']);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
+import {StorageService} from "./core/services/storage.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CarteleraObject } from './login/shared/cartelera-object.model';
 
@@ -13,18 +13,13 @@ export class CarteleraService {
 
   
 
-  constructor(private http: HttpClient) { }
-
-  generateHeaders(){
-    let headers: HttpHeaders = new HttpHeaders();
-    headers.append('Token', '1123456');
-    return headers;
-  }
+  constructor(private http: HttpClient,
+              private storageService: StorageService) { }
 
   getCarteleras(): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
-        'Token':  '1123456'
+        'Token':  this.storageService.getCurrentToken()
       })
     };
     return this.http.get('http://localhost:8080/ttps-spring/carteleras',
@@ -35,7 +30,7 @@ export class CarteleraService {
   crear(unaCartelera:CarteleraObject): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
-        'Token':  '4123456',
+        'Token':  this.storageService.getCurrentToken(),
         'Content-Type': 'application/json'
       })
     };
