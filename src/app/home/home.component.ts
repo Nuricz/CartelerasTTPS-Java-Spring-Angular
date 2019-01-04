@@ -4,8 +4,10 @@
 import {Component, OnInit} from "@angular/core";
 import {StorageService} from "../core/services/storage.service";
 import {User} from "../core/models/user.model";
-import {AuthenticationService} from "../login/shared/authentication.service";
+import {AuthenticationService} from "../_services/authentication.service";
 import {Router} from "@angular/router";
+import { CarteleraObject } from "../login/shared/cartelera-object.model";
+import { CarteleraService } from "../_services";
 @Component({
   selector: 'home',
   templateUrl: 'home.component.html'
@@ -13,15 +15,32 @@ import {Router} from "@angular/router";
 
 export class HomeComponent implements OnInit {
   public user: User;
+  carteleras: CarteleraObject[] = [];
+  error: String;
+  loading: Boolean = false;
 
   constructor(
     private storageService: StorageService,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private carteleraService: CarteleraService
   ) { }
 
   ngOnInit() {
     this.user = this.storageService.getCurrentUser();
+    this.loading = true;
+    this.carteleraService.getCarteleras()
+        .subscribe(
+            data => {
+                this.loading = false;
+                this.carteleras = data;
+            },
+            error => {
+                this.error = 'No se pudieron cargar las carteleras';
+                this.loading = false;
+                console.error(error);
+            }
+        );
   }
 
   public logout(): void{

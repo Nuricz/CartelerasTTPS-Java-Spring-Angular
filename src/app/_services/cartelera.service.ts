@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import {StorageService} from "./core/services/storage.service";
+import {StorageService} from "../core/services/storage.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CarteleraObject } from './login/shared/cartelera-object.model';
+import { CarteleraObject } from '../login/shared/cartelera-object.model';
+import { environment as env } from '../../environments/environment';
 
 
 
@@ -22,7 +23,7 @@ export class CarteleraService {
         'Token':  this.storageService.getCurrentToken()
       })
     };
-    return this.http.get('http://localhost:8080/ttps-spring/carteleras',
+    return this.http.get(`${env.url}/carteleras`,
                         httpOptions
                         );
   }

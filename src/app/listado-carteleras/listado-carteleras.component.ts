@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CarteleraService } from '../cartelera.service';
+import { CarteleraService } from '../_services/cartelera.service';
 
 @Component({
   selector: 'app-listado-carteleras',

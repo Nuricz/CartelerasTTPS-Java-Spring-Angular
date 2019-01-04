@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Validators, FormGroup, FormBuilder} from "@angular/forms";
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import {Router} from "@angular/router";
-import { CarteleraService } from "../cartelera.service";
+import { CarteleraService } from "../_services/cartelera.service";
 import {CarteleraObject} from "../login/shared/cartelera-object.model";
 
 @Component({

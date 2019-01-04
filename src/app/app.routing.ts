@@ -10,7 +10,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'carteleras', component: ListadoCartelerasComponent, pathMatch: 'full', canActivate: [ AuthorizatedGuard ]},
   { path: 'agregar-cartelera', component: AgregarCarteleraComponent, pathMatch: 'full', canActivate: [ AuthorizatedGuard ]},
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home'}
 ];
 

@@ -7,7 +7,7 @@
       <li class="nav-item" *ngIf="user">
         <a class="nav-link" routerLink="/carteleras" routerLinkActive="active">| Carteleras</a>
       </li>
-      <li class="nav-item" *ngIf="user.perfil == 'Administrador'">
+      <li class="nav-item" *ngIf="user && user.perfil == 'Administrador'">
           <a class="nav-link" routerLink="/agregar-cartelera" routerLinkActive="active">| Agregar cartelera</a>
         </li>
       <li class="nav-item" *ngIf="user">

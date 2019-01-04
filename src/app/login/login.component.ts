@@ -4,11 +4,13 @@
 import {Component, OnInit} from "@angular/core";
 import {Validators, FormGroup, FormBuilder} from "@angular/forms";
 import {LoginObject} from "./shared/login-object.model";
-import {AuthenticationService} from "./shared/authentication.service";
+import {AuthenticationService} from "../_services/authentication.service";
 import {StorageService} from "../core/services/storage.service";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {User} from "../core/models/user.model";
+import { first } from 'rxjs/operators';
 import { HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { parseSelectorToR3Selector } from "@angular/compiler/src/core";
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html'
@@ -17,42 +19,39 @@ import { HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/ht
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public submitted: Boolean = false;
-  public error: {code: number, message: string} = null;
+  public error: string;
   public user:User;
-
+  returnUrl: string;
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private storageService: StorageService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-    });
-    this.user = this.storageService.getCurrentUser();
+    });    
+    this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   public submitLogin(): void {
     this.submitted = true;
-    this.error = null;
+    
     
     if(this.loginForm.valid){
+      let form= new LoginObject(this.loginForm.value);
       
-      this.authenticationService.login(new LoginObject(this.loginForm.value)).subscribe(
-        (res: HttpResponse<any>) => {
-          
-          this.correctLogin(res.headers)
+      this.authenticationService.login(form.username,form.password).subscribe(
+        (res: HttpResponse<any>) => {                    
+          this.router.navigate([this.returnUrl]);
         },
-        (error: HttpErrorResponse) => {
-          window.alert('Los datos ingresados están rancios.. como Pablo')
+        (_error: HttpErrorResponse) => {
+          this.error = 'Nombre de usuario o Contraseña incorrectas';
         }
       )
     }
-  }
-
-  private correctLogin(headers:HttpHeaders){
-    this.storageService.setCurrentSession(headers);
-    this.router.navigate(['/home']);
-  }
+  }  
 }

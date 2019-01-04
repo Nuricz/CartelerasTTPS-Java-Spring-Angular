@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import { Router } from '@angular/router';
 import {Session} from "../models/session.model";
 import {User} from "../models/user.model";
-import { HttpHeaders } from "@angular/common/http";
+import { HttpHeaders, HttpResponse } from "@angular/common/http";
 
 @Injectable()
 export class StorageService {
@@ -18,14 +18,11 @@ export class StorageService {
     this.currentSession = this.loadSessionData();
   }
 
-  setCurrentSession(headers:HttpHeaders){
-    let nuevoUsuario={
-      "nombre":headers.get('nombre'),
-      "apellido":headers.get('apellido'),
-      "username":headers.get('username'),
-      "perfil":headers.get('perfil'),
-      "email":headers.get('mail'),
-      "token":headers.get('token')
+  setCurrentSession(user:HttpResponse<any>){
+    let nuevoUsuario={      
+      "username":user.body.username,
+      "perfil":user.body.perfil,      
+      "token":user.body.token
     }       
     this.currentSession = nuevoUsuario;
     this.localStorageService.setItem('currentUser', JSON.stringify(nuevoUsuario));
