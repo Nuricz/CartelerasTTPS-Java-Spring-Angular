@@ -12,7 +12,7 @@
               <form style="display: block;" #lForm="ngForm" [formGroup]="carteleraForm" (ngSubmit)="submitCartelera()" novalidate>
                 <div class="form-group text-center">
                     <label for="remember"> Cartelera de materia?</label>  
-                    <input type="checkbox" id="button1" formControlName= "Male" style="width: 25px" value="male"/>
+                    <!-- <input type="checkbox" id="button1" formControlName= "Male" style="width: 25px" value="male"/> -->
                       
                   </div>
                 <div class="form-group">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label class="mr-sm-2" for="inlineFormCustomSelect">Año</label>
-                    <select class="select form-control" [(ngModel)]="year" formControlName="year" id="sName">
+                    <select class="select form-control" [(ngModel)]="anio" formControlName="anio" id="sName">
                       <option value="" selected></option>
                       <option value="1">1</option>
                       <option value="2">2</option>

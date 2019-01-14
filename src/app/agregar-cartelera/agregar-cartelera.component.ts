@@ -3,7 +3,7 @@ import {Validators, FormGroup, FormBuilder} from "@angular/forms";
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import {Router} from "@angular/router";
 import { CarteleraService } from "../_services/cartelera.service";
-import {CarteleraObject} from "../login/shared/cartelera-object.model";
+import { CarteleraObject } from '../core/models/cartelera-object.model';
 
 @Component({
   selector: 'app-agregar-cartelera',
@@ -24,7 +24,7 @@ export class AgregarCarteleraComponent implements OnInit {
   ngOnInit() {
     this.carteleraForm = this.formBuilder.group({
       nombre: ['', Validators.required],
-      year: ['', ],
+      anio: ['', ],
     });
   }
 
@@ -33,8 +33,7 @@ export class AgregarCarteleraComponent implements OnInit {
     this.error = null;
     if(this.carteleraForm.valid){
       this.carteleraService.crear(new CarteleraObject(this.carteleraForm.value)).subscribe(
-        (res: HttpResponse<any>) => {
-          window.alert('La cartelera se ha creado');
+        (res: HttpResponse<any>) => {         
           this.router.navigate(['/carteleras']);
         },
         (error: HttpErrorResponse) => {

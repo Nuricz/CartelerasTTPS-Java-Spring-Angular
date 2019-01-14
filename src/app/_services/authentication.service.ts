@@ -12,14 +12,12 @@ import { StorageService } from '../core/services/storage.service';
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-    
-
     constructor(private http: HttpClient,
         private store:StorageService,) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
-    
+
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
@@ -48,7 +46,7 @@ export class AuthenticationService {
 
     logout() {
         // elimino las credenciales del localstorage al deslogearme
-        this.store.removeCurrentSession();        
+        this.store.removeCurrentSession();
         this.currentUserSubject.next(null);
     }
 }

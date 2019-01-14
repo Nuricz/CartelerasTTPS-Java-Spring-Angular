@@ -1,6 +1,6 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
-import {StorageService} from "./services/storage.service";
-import {AuthorizatedGuard} from "./guards/authorizated.guard";
+import { StorageService } from './services/storage.service';
+import { AuthorizatedGuard } from './guards/authorizated.guard';
 
 @NgModule({
   declarations: [  ],

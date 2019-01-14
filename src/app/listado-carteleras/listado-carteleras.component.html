@@ -1,21 +1,30 @@
 <app-navbar></app-navbar>
+
 <table class="table table-striped">
+  <thead class="black white-text">
   <tr>
     <th>Nombre</th>
     <th>Año</th>
+    <th>Action</th>
   </tr>
+ </thead>
+ <tbody>
   <tr *ngFor="let cartelera of carteleras">
     <td>
       {{ cartelera.nombre }}
     </td>
-    <td *ngIf="cartelera.year; else linea">
-      {{ cartelera.year }}
+    <td *ngIf="cartelera.anio; else linea">
+      {{ cartelera.anio }}
     </td>
     <ng-template #linea>
       <td>
         -
       </td>
     </ng-template>
+    <button type="button" class="btn btn-primary">edit</button>
+    <button type="button" class="btn btn-danger" tooltip="esta accion no puede deshacerse" (click)="borrar(cartelera)">delete</button>
+    <button type="button" class="btn btn-primary">pause</button>
+    <button type="button" class="btn btn-primary">activate</button>
   </tr>
-
+ </tbody>
 </table>
